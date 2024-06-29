@@ -1,0 +1,386 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+:root {
+    --primary: #0077b6;
+    --primary-hover: #028ed8;
+    --secondary: #0F0101;
+    --black: #000000;
+    --white: #fff;
+    --green-color: #76B51B;
+    --box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+* {
+    font-family: 'Open Sans';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: .2s linear;
+}
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-padding-top: 9rem;
+    scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar {
+    width: .8rem;
+}
+
+html::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: .5rem;
+}
+
+section {
+    padding: 5rem 7%;
+}
+
+.heading {
+    font-size: 3rem;
+    color: var(--black);
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bolder;
+    margin-bottom: 3rem;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 1rem 3rem;
+    background: var(--primary);
+    border-radius: .5rem;
+    color: var(--white);
+    font-size: 1.7rem;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: var(--primary-hover);
+    transform: translate(0, -4px);
+}
+
+/* header */
+.header {
+    position: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--black);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 9%;
+    height: 85px;
+    width: 100%;
+}
+
+.header .logo {
+    display: block;
+    width: 150px;
+    height: 100px;
+}
+
+.header .logo img {
+    width: 95%;
+}
+
+.header .navbar a {
+    font-size: 1.8rem;
+    color: var(--white);
+    margin: 0 1rem;
+}
+
+.header .navbar a:hover {
+    color: var(--primary);
+}
+
+.header .navbar .btn {
+    margin-top: 0;
+    color: var(--white);
+}
+
+.header .navbar .btn:hover {
+    color: var(--white);
+    background-color: var(--primary-hover);
+}
+
+#menu-btn {
+    display: none;
+    font-size: 2.5rem;
+    cursor: pointer;
+    color: var(--white);
+}
+
+/* end */
+
+
+/* home */
+
+.home {
+    padding: 0;
+}
+
+.home .slide {
+    min-height: 100vh;
+    background-size: cover !important;
+    background-position: center !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: -1;
+}
+
+.cl-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 10px;
+}
+
+.img-container {
+    width: 30%;
+    margin: 10px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.img-container .col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: justify;
+    font-size: 15px;
+    line-height: 3rem;
+    text-align: justify;
+    color: #333;    
+    margin-bottom: 1rem;
+}
+
+.rimg {
+    width: 300px;
+    height: 250px;
+}
+
+.img-container .col h3 {
+    font-size: 25px;
+    letter-spacing: 0.1em;
+    text-align: center;
+    color: var(--black);
+    margin: 15px 0;
+}
+
+.msg {
+    margin: 0;
+    padding: 0;
+    height: 55px;
+    justify-content: right;
+    align-items: right;
+    display: flex;
+}
+
+.btnsm {
+    display: flex;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+    background: var(--green-color);
+    width: 300px;
+    padding: 5px;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    color: var(--black);
+    cursor: pointer;
+}
+
+.btnsm:hover {
+    background: #59981A;
+    color: var(--black);
+}
+
+/* end */
+
+/* footer */
+.footer {
+    background: var(--secondary);
+    padding-top: 1rem;
+    color: var(--white);
+    text-align: center;
+}
+
+.footer .box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.footer .box h3 {
+    font-size: 1.8rem;
+    padding-bottom: 1rem;
+}
+
+.footer .box img {
+    width: 80%;
+    margin: auto;
+}
+
+.footer .box a {
+    font-size: 1.6rem;
+    display: block;
+    color: var(--white);
+    padding: 0.5rem 0;
+}
+
+.footer .box p {
+    color: var(--white);
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+}
+
+.footer .box a i {
+    color: var(--white);
+    padding-right: .5rem;
+}
+
+.footer .box a:hover {
+    color: var(--primary);
+}
+
+.footer .share a {
+    color: var(--white);
+    font-size: 2rem;
+    width: 4rem;
+    height: 4rem;
+    line-height: 4rem;
+    border-radius: 50%;
+    border: .1rem solid var(--white);
+    margin: .5rem;
+    display: inline-block;
+}
+
+.footer .share a:hover {
+    color: var(--primary);
+}
+
+.footer .credit {
+    background: var(--secondary);
+    width: 100%;
+    font-size: 1.2rem;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.footer .credit span {
+    color: var(--white);
+}
+/* end */
+
+/* media queries */
+@media (max-width:991px) {
+
+    html {
+        font-size: 55%;
+    }
+
+    .header {
+        padding: 2rem 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .header .navbar {
+        position: fixed;
+        top: 85px;
+        right: -100%;
+        background: var(--primary-hover);
+        flex-direction: column;
+        width: 100%;
+        height: calc(100vh - 85px);
+        box-shadow: var(--box-shadow);
+        border-radius: 0;
+        transition: 0.3s;
+        z-index: 999;
+    }
+
+    .header .navbar.active {
+        right: 0;
+    }
+
+    .header .navbar a {
+        display: block;
+        font-size: 2rem;
+        margin: 2rem 0;
+        text-align: center;
+    }
+
+    #menu-btn {
+        display: inline-block;
+    }
+
+    .cl-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .img-container {
+        width: 80%;
+        margin: 10px 0;
+    }
+}
+
+@media (max-width: 450px) {
+
+    html {
+        font-size: 50%;
+    }
+
+    .btnsm {
+        width: 400px;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    .rimg {
+        width: 100%;
+        height: 200px;
+    }
+
+    .btnsm {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+    
+    .btn{
+        height: 5rem;
+    }
+}
+
+/* end */
