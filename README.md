@@ -40,6 +40,7 @@ To view the website, simply open `index.html` in your web browser.
 ## Development
 
 You can use any code editor to modify the HTML, CSS, and JavaScript files for development. If you make any changes, please make sure to test the website across different devices and browsers to maintain its responsiveness and functionality.
+
 ---
 
 Thank you for checking out my hotel management website project! I hope you find it useful and well-designed.
