@@ -47,52 +47,107 @@
       <div class="container">
          <div class="title">RESERVE NOW</div>
          <div class="content">
-            <form action="#">
+            <form id="reservationForm">
                <div class="user-details">
                   <div class="input-box">
                      <span class="details">Your Name</span>
-                     <input type="text" required>
+                     <input type="text" id="name" required>
+                     <span class="error" id="nameError"></span>
                   </div>
                   <div class="input-box">
                      <span class="details">Email Address</span>
-                     <input type="email" required>
+                     <input type="email" id="email" required>
+                     <span class="error" id="emailError"></span>
                   </div>
                   <div class="input-box">
                      <span class="details">Phone No</span>
-                     <input type="text" required>
+                     <input type="text" id="phone" required>
+                     <span class="error" id="phoneError"></span>
                   </div>
                   <div class="input-box">
                      <span class="details">Country</span>
-                     <input type="text" required>
+                     <input type="text" id="country" required>
+                     <span class="error" id="countryError"></span>
                   </div>
                   <div class="input-box">
                      <span class="details">Arrival</span>
-                     <input type="date" required>
+                     <input type="date" id="arrival" required>
+                     <span class="error" id="arrivalError"></span>
                   </div>
                   <div class="input-box">
                      <span class="details">Departure</span>
-                     <input type="date" required>
+                     <input type="date" id="departure" required>
+                     <span class="error" id="departureError"></span>
                   </div>
                   <div class="input-box">
                      <span class="details">Adults</span>
-                     <input type="number" required>
+                     <input type="number" id="adults" required>
+                     <span class="error" id="adultsError"></span>
                   </div>
                   <div class="input-box">
                      <span class="details">Children</span>
-                     <input type="number" required>
+                     <input type="number" id="children" required>
+                     <span class="error" id="childrenError"></span>
                   </div>
                   <div class="input-box">
                      <span class="details">Your Comments</span>
-                     <textarea placeholder="Enter your message" required></textarea>
+                     <textarea id="comments" placeholder="Enter your message" required></textarea>
+                     <span class="error" id="commentsError"></span>
                   </div>
                </div>
                <div class="button">
-                  <a href="payment_info.html" class="btn">Add payment Method</a>
-                  <button type="submit" class="btn" onclick="openPopup()">Book Now</button>
+                  <button type="button" id="paymentButton" class="btn" onclick="payment()">Add payment Method</button>
+                  <button type="button" id="bookButton" class="btn" onclick="submitForm()" disabled>Book Now</button>
                </div>
             </form>
          </div>
       </div>
+
+      <!-- payment -->
+      <div id="payment">
+         <div class="payment-main-div" id="payment-popup">
+            <div class="payment-container">
+               <form class="payment-form" action="">
+                  <div class="payment-number-container">
+                     <div class="payment-input-box">
+                        <span>Cards accepted :</span>
+                        <br>
+                        <img src="images/card_img.png" alt="">
+                     </div>
+                     <br>
+                     <label>Card Number</label>
+                     <input type="text" name="card-number" id="card-number" maxlength="19"
+                        placeholder="1234 5678 9101 1121" required oninput="formatCardNumber(this)"
+                        onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                  </div>
+
+                  <div class="payment-infos-container">
+                     <div class="payment-expiration-container">
+                        <label>Expiration Date (MM/YY)</label>
+                        <input type="text" name="valid-thru-text" id="valid-thru-text" maxlength="5" placeholder="MM/YY"
+                           required
+                           onkeypress="return (event.charCode >=48 && event.charCode <= 57) || event.charCode == 47">
+                     </div>
+                     <div class="payment-cvv-container">
+                        <label>Cvv</label>
+                        <input type="text" name="cvv-text" id="cvv-text" maxlength="4" placeholder="1234" required
+                           onkeypress="return event.charCode >=48 && event.charCode <= 57">
+                     </div>
+                  </div>
+                  <div class="payment-name-container">
+                     <label>Name on Card</label>
+                     <input type="text" name="name-text" id="name-text" maxlength="30" placeholder="NOAH JACOB" required
+                        onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.key == ' '">
+                  </div>
+                  <br>
+                  <button type="button" id="add" class="payment-btn" onclick="paymentSubmit()">ADD</button>
+               </form>
+               <button class="payment-btn" id="cancel" onclick="paymentclosePopup()">CANCEL</button>
+            </div>
+         </div>
+      </div>
+      <!-- end -->
+
 
       <!-- get in touch-->
       <div class="right">
@@ -171,17 +226,97 @@
 
 
    <script>
-      let background = document.getElementById("background");
+      const form = document.getElementById("reservationForm");
+      const paymentButton = document.getElementById("paymentButton");
+      const bookButton = document.getElementById("bookButton");
+
+      function showError(input, message) {
+         const errorElement = document.getElementById(input.id + "Error");
+         errorElement.innerText = message;
+      }
+
+      function clearError(input) {
+         const errorElement = document.getElementById(input.id + "Error");
+         errorElement.innerText = "";
+      }
+
+      function validateField(input, validationFunction, message) {
+         if (validationFunction(input.value)) {
+            clearError(input);
+            return true;
+         } else {
+            showError(input, message);
+            return false;
+         }
+      }
+
+      function validateForm() {
+         const isValidName = validateField(document.getElementById("name"), value => value.trim() !== "", "Name is required");
+         const isValidEmail = validateField(document.getElementById("email"), value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), "Invalid email address");
+         const isValidPhone = validateField(document.getElementById("phone"), value => /^\d{10}$/.test(value), "Phone number must be 10 digits");
+         const isValidCountry = validateField(document.getElementById("country"), value => value.trim() !== "", "Country is required");
+         const isValidArrival = validateField(document.getElementById("arrival"), value => value.trim() !== "", "Arrival date is required");
+         const isValidDeparture = validateField(document.getElementById("departure"), value => {
+            const arrivalDate = new Date(document.getElementById("arrival").value);
+            const departureDate = new Date(value);
+            return departureDate >= arrivalDate;
+         }, "Departure date must be later than or equal to Arrival date");
+         const isValidAdults = validateField(document.getElementById("adults"), value => value > 0, "Number of adults must be greater than 0");
+         const isValidChildren = validateField(document.getElementById("children"), value => value >= 0, "Number of children cannot be negative");
+         const isValidComments = validateField(document.getElementById("comments"), value => value.trim() !== "", "Comments are required");
+
+         const isFormValid = isValidName && isValidEmail && isValidPhone && isValidCountry && isValidArrival && isValidDeparture && isValidAdults && isValidChildren && isValidComments;
+
+         bookButton.disabled = !isFormValid;
+
+         return isFormValid;
+      }
+
+      function submitForm() {
+         if (validateForm()) {
+            openPopup();
+         }
+      }
+
+      form.addEventListener("input", validateForm);
+
+      function formatCardNumber(input) {
+         // Remove any non-numeric characters
+         let cardNumber = input.value.replace(/\D/g, '');
+
+         // Add spaces after every four digits (except the last group of four)
+         if (cardNumber.length > 0) {
+            cardNumber = cardNumber.match(/.{1,4}/g).join(' ');
+         }
+
+         input.value = cardNumber;
+      }
+
+
+      function payment() {
+         const paymentPopup = document.getElementById("payment-popup");
+         paymentPopup.style.display = "block";  // Show the payment popup
+         const background = document.getElementById("payment-background");
+         background.style.display = "block";  // Show the background overlay
+      }
+
+      // JavaScript function to close the payment popup
+      function paymentclosePopup() {
+         const paymentPopup = document.getElementById("payment-popup");
+         paymentPopup.style.display = "none";  // Hide the payment popup
+         const background = document.getElementById("payment-background");
+         background.style.display = "none";  // Hide the background overlay
+      }
 
       function openPopup() {
+         const background = document.getElementById("background");
          background.classList.add("open-popup");
       }
 
       function closePopup() {
+         const background = document.getElementById("background");
          background.classList.remove("open-popup");
-         window.location.href = "index.html";
       }
-
    </script>
    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
    <script src="https://kit.fontawesome.com/af38bbe4f6.js" crossorigin="anonymous"></script>
