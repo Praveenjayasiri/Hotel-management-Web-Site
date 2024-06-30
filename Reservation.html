@@ -42,7 +42,6 @@
    <!-- end -->
 
    <!-- Contact us-->
-   <!-- Contact us-->
    <div class="contact-section">
       <div class="container">
          <div class="title">RESERVE NOW</div>
@@ -51,47 +50,47 @@
                <div class="user-details">
                   <div class="input-box">
                      <span class="details">Your Name</span>
-                     <input type="text" id="name" required>
+                     <input type="text" id="name" name="name" required>
                      <span class="error" id="nameError"></span>
                   </div>
                   <div class="input-box">
                      <span class="details">Email Address</span>
-                     <input type="email" id="email" required>
+                     <input type="email" id="email" name="email" required>
                      <span class="error" id="emailError"></span>
                   </div>
                   <div class="input-box">
                      <span class="details">Phone No</span>
-                     <input type="text" id="phone" required>
+                     <input type="text" id="phone" name="phone" required>
                      <span class="error" id="phoneError"></span>
                   </div>
                   <div class="input-box">
                      <span class="details">Country</span>
-                     <input type="text" id="country" required>
+                     <input type="text" id="country" name="country" required>
                      <span class="error" id="countryError"></span>
                   </div>
                   <div class="input-box">
                      <span class="details">Arrival</span>
-                     <input type="date" id="arrival" required>
+                     <input type="date" id="arrival" name="arrival" required>
                      <span class="error" id="arrivalError"></span>
                   </div>
                   <div class="input-box">
                      <span class="details">Departure</span>
-                     <input type="date" id="departure" required>
+                     <input type="date" id="departure" name="departure" required>
                      <span class="error" id="departureError"></span>
                   </div>
                   <div class="input-box">
                      <span class="details">Adults</span>
-                     <input type="number" id="adults" required>
+                     <input type="number" id="adults" name="adults" required>
                      <span class="error" id="adultsError"></span>
                   </div>
                   <div class="input-box">
                      <span class="details">Children</span>
-                     <input type="number" id="children" required>
+                     <input type="number" id="children" name="children" required>
                      <span class="error" id="childrenError"></span>
                   </div>
                   <div class="input-box">
                      <span class="details">Your Comments</span>
-                     <textarea id="comments" placeholder="Enter your message" required></textarea>
+                     <textarea id="comments" name="comments" placeholder="Enter your message" required></textarea>
                      <span class="error" id="commentsError"></span>
                   </div>
                </div>
@@ -107,7 +106,7 @@
       <div id="payment">
          <div class="payment-main-div" id="payment-popup">
             <div class="payment-container">
-               <form class="payment-form" action="">
+               <form class="payment-form" id="payment-form" action="">
                   <div class="payment-number-container">
                      <div class="payment-input-box">
                         <span>Cards accepted :</span>
@@ -274,7 +273,16 @@
 
       function submitForm() {
          if (validateForm()) {
-            openPopup();
+            const formData = new FormData(form);
+
+            // Convert FormData to a plain object
+            const data = {};
+            formData.forEach((value, key) => {
+               data[key] = value;
+            });
+
+            console.log(data); // Log the data object to verify the contents
+            openPopup(); // Ensure you have a function defined for openPopup
          }
       }
 
@@ -292,20 +300,15 @@
          input.value = cardNumber;
       }
 
-
       function payment() {
          const paymentPopup = document.getElementById("payment-popup");
          paymentPopup.style.display = "block";  // Show the payment popup
-         const background = document.getElementById("payment-background");
-         background.style.display = "block";  // Show the background overlay
       }
 
       // JavaScript function to close the payment popup
       function paymentclosePopup() {
          const paymentPopup = document.getElementById("payment-popup");
          paymentPopup.style.display = "none";  // Hide the payment popup
-         const background = document.getElementById("payment-background");
-         background.style.display = "none";  // Hide the background overlay
       }
 
       function openPopup() {
@@ -316,6 +319,21 @@
       function closePopup() {
          const background = document.getElementById("background");
          background.classList.remove("open-popup");
+         window.location = "index.html";
+      }
+
+      function paymentSubmit() {
+         const form = document.getElementById("payment-form");
+         const formData = new FormData(form);
+
+         // Convert FormData to a plain object
+         const data = {};
+         formData.forEach((value, key) => {
+            data[key] = value;
+         });
+
+         console.log(data);
+         paymentclosePopup();
       }
    </script>
    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
