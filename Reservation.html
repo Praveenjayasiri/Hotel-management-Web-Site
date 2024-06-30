@@ -13,6 +13,7 @@
    <!-- custom css link -->
    <link rel="stylesheet" href="styles/Reservation.css">
 </head>
+
 <body>
 
    <!-- header -->
@@ -41,6 +42,7 @@
    <!-- end -->
 
    <!-- Contact us-->
+   <!-- Contact us-->
    <div class="contact-section">
       <div class="container">
          <div class="title">RESERVE NOW</div>
@@ -53,72 +55,62 @@
                   </div>
                   <div class="input-box">
                      <span class="details">Email Address</span>
-                     <input type="text" required>
+                     <input type="email" required>
                   </div>
-
                   <div class="input-box">
                      <span class="details">Phone No</span>
                      <input type="text" required>
                   </div>
-
                   <div class="input-box">
                      <span class="details">Country</span>
                      <input type="text" required>
                   </div>
-
                   <div class="input-box">
-                     <span class="details">Arival</span>
-                     <input type="text" required>
+                     <span class="details">Arrival</span>
+                     <input type="date" required>
                   </div>
                   <div class="input-box">
-                     <span class="details">Depature</span>
-                     <input type="text" required>
+                     <span class="details">Departure</span>
+                     <input type="date" required>
                   </div>
                   <div class="input-box">
                      <span class="details">Adults</span>
-                     <input type="text" required>
+                     <input type="number" required>
                   </div>
                   <div class="input-box">
                      <span class="details">Children</span>
-                     <input type="text" required>
+                     <input type="number" required>
                   </div>
-                  <div class="button">
-                     <a href="payment_info.html" class="btn">Add payment Method </a>
-                     <br>
-                  </div>
-                  <div class="input-box"></div>
                   <div class="input-box">
                      <span class="details">Your Comments</span>
-                     <textarea type="text" placeholder="Enter your message" required> </textarea>
+                     <textarea placeholder="Enter your message" required></textarea>
                   </div>
                </div>
-               <div class="containers">
-                  <div>
-                     <button type="submit" class="btn" onclick="openPopup()">Book Now</button>
-                  </div>
+               <div class="button">
+                  <a href="payment_info.html" class="btn">Add payment Method</a>
+                  <button type="submit" class="btn" onclick="openPopup()">Book Now</button>
                </div>
             </form>
          </div>
       </div>
-      <!-- Contact us end-->
 
       <!-- get in touch-->
       <div class="right">
          <div class="touch">
             <div class="image">
-               <img src="images/room-2.jpg" alt="">
+               <img src="images/room-2.jpg" alt="Room Image 1">
             </div>
-
             <div class="image">
-               <img src="images/room-2.jpg" alt="">
+               <img src="images/room-2.jpg" alt="Room Image 2">
             </div>
-
             <div class="image">
-               <img src="images/room-2.jpg" alt="">
+               <img src="images/room-2.jpg" alt="Room Image 3">
             </div>
          </div>
       </div>
    </div>
+   <!-- end-->
+
    <!-- end-->
 
    <!-- send message -->
@@ -168,27 +160,28 @@
    </section>
    <!-- end -->
 
-   <!-- end -->
-   <div class="background">
+   <div class="background" id="background">
       <div class="popup" id="popup">
          <h2>Booking <br> Successfully!</h2>
          <img src="images/msg.png" alt="">
-         <h4>Your invoice number <br>sent your Email. check <br> your Email....!</h4>
-         <button type="button" onclick="closePopup()">OK</button>
+         <h4>Your invoice number <br>sent to your Email. Check <br> your Email....!</h4>
+         <button class="btn" type="button" onclick="closePopup()">OK</button>
       </div>
-
    </div>
 
+
    <script>
-      let popup = document.getElementById("popup");
+      let background = document.getElementById("background");
 
       function openPopup() {
-         popup.classList.add("open-popup");
+         background.classList.add("open-popup");
       }
 
       function closePopup() {
-         popup.classList.remove("open-popup");
+         background.classList.remove("open-popup");
+         window.location.href = "index.html";
       }
+
    </script>
    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
    <script src="https://kit.fontawesome.com/af38bbe4f6.js" crossorigin="anonymous"></script>
