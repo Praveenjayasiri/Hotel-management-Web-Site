@@ -1,53 +1,124 @@
 <!DOCTYPE html>
-<!-- Designined by CodingLab - youtube.com/codinglabyt -->
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="css file/BOOK YOUR STAY.css">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="styles/BOOK_YOUR_STAY.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
 <body>
-	<div>
-		<div class="main-div">
-				<div class="title">BOOK YOUR STAY</div>
-					<div class="container">
-						<div class="content">
-							<form action="#">
-								<div class="user-details">
-									<div class="input-box">
-										<span class="details">CHECK IN</span>
-										<input type="date" placeholder="2023-03-15" required>
-									</div>
-									<div class="input-box">
-										<span class="details">CHECK OUT</span>
-										<input type="date" placeholder="2023-03-16" required>
-									</div>
-								</div>
-									<div class="user-info">
-										<div class="input-line">
-											<span class="details">EMAIL</span>
-											<input type="text" placeholder="Enter your email" required>
-										</div>
-										<div class="input-line">
-											<span class="details">NATIONALITY</span>
-											<input type="text" placeholder="Nationality" required>
-										</div>
-										<div class="input-line">
-											<span class="details">HAVE A PROMOTIONAL CODE</span>
-											<input type="text" placeholder="Enter promotional code" required>
-										</div>
-									</div>
-									<div class="button">
-										<input type="submit" value="CHECK AVAILABILITY">
-									</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			<div class="downside">
-				
-			</div>
-		</div>
-	</div>
+	<div class="main-div" id="booking-popup">
+        <div class="title">BOOK YOUR STAY</div>
+        <div class="container">
+            <div class="content">
+                <form id="booking-form">
+                    <div class="user-details">
+                        <div class="input-box">
+                            <span class="details">CHECK IN</span>
+                            <input type="date" id="checkin-date" required>
+                            <span class="error" id="checkin-error"></span>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">CHECK OUT</span>
+                            <input type="date" id="checkout-date" required>
+                            <span class="error" id="checkout-error"></span>
+                        </div>
+                    </div>
+                    <div class="user-info">
+                        <div class="input-column">
+                            <span class="details">EMAIL</span>
+                            <input type="email" id="email" placeholder="Enter your email" required>
+                            <span class="error" id="email-error"></span>
+                        </div>
+                        <div class="input-column">
+                            <span class="details">NATIONALITY</span>
+                            <input type="text" id="nationality" placeholder="Nationality" required>
+                            <span class="error" id="nationality-error"></span>
+                        </div>
+                        <div class="input-column">
+                            <span class="details">HAVE A PROMOTIONAL CODE</span>
+                            <input type="text" id="promo-code" maxlength="10" placeholder="Enter promotional code">
+                            <span class="error" id="promo-error"></span>
+                        </div>
+                    </div>
+                    <div class="button">
+                        <input type="submit" value="CHECK AVAILABILITY">
+                    </div>
+                </form>
+                <button id="cancel">CANCEL</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Cancel button functionality
+        document.getElementById('cancel').addEventListener('click', function() {
+            window.location.href = 'room1.html';
+        });
+
+        // Form submission with validation and AJAX
+        document.getElementById('booking-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Clear previous error messages
+            document.getElementById('checkin-error').textContent = '';
+            document.getElementById('checkout-error').textContent = '';
+            document.getElementById('email-error').textContent = '';
+            document.getElementById('nationality-error').textContent = '';
+            document.getElementById('promo-error').textContent = '';
+
+            // Form validation
+            var checkinDate = document.getElementById('checkin-date').value;
+            var checkoutDate = document.getElementById('checkout-date').value;
+            var email = document.getElementById('email').value;
+            var nationality = document.getElementById('nationality').value;
+            var promoCode = document.getElementById('promo-code').value;
+
+            var isValid = true;
+
+            // Validate email
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById('email-error').textContent = 'Email should be a valid email address.';
+                isValid = false;
+            }
+
+            // Validate dates
+            if (checkoutDate < checkinDate) {
+                document.getElementById('checkout-error').textContent = 'Check-out date must be equal to or greater than check-in date.';
+                isValid = false;
+            }
+
+            // Validate nationality
+            var nationalityPattern = /^[A-Za-z\s]+$/;
+            if (!nationalityPattern.test(nationality)) {
+                document.getElementById('nationality-error').textContent = 'Nationality should be a country and contain no numbers.';
+                isValid = false;
+            }
+
+            // Validate promo code (if entered)
+            var promoPattern = /^[A-Za-z0-9]{10}$/;
+            if (promoCode && !promoPattern.test(promoCode)) {
+                document.getElementById('promo-error').textContent = 'Promotional code should be exactly 10 alphanumeric characters.';
+                isValid = false;
+            }
+
+            if (!isValid) {
+                return;
+            }
+
+            // Collect form data
+            var formData = {
+                checkinDate: checkinDate,
+                checkoutDate: checkoutDate,
+                email: email,
+                nationality: nationality,
+                promoCode: promoCode
+            };
+
+            // Log form data to console instead of sending to server
+            console.log('Form data:', formData);
+        });
+    </script>
 </body>
 </html>
