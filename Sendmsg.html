@@ -1,43 +1,112 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="css file/Sendmsg.css">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="styles/Sendmsg.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
 <body>
 	<div>
 		<div class="main-div">
-				<div class="title">Please fill out the form below and we will get back to you as soon as possible</div>
-					<div class="container">
-						<div class="content">
-							<form action="#" id="form">
-									<div class="user-info">
-										<div class="input-line">
-											<span class="details">NAME</span>
-											<input type="text" placeholder="Enter your Name" required>
-										</div>
-										<div class="input-line">
-											<span class="details" id="text">EMAIL</span>
-											<input type="email" id="email" placeholder="Enter your Email" onkeydown="validation()" required>
-										</div>
-										<div class="input-line">
-											<span class="details">MESSAGE</span>
-											<textarea type="text" placeholder="Enter your message" required></textarea>
-										</div>
-									</div>
-									<div class="button">
-										<input type="submit" value="SUBMIT">
-									</div>
-							</form>
+			<div class="title">
+				Please fill out the form below and we will get back to you as soon as possible				
+			</div>
+			<div class="container">
+				<div class="content">
+					<form action="#" id="form">
+						<div class="user-info">
+							<div class="input-line">
+								<span class="details">NAME</span>
+								<input type="text" id="name" placeholder="Enter your Name" required>
+								<span class="error" id="name-error"></span>
+							</div>
+							<div class="input-line">
+								<span class="details" id="text">EMAIL</span>
+								<input type="email" id="email" placeholder="Enter your Email" required>
+								<span class="error" id="email-error"></span>
+							</div>
+							<div class="input-line">
+								<span class="details">MESSAGE</span>
+								<textarea id="message" placeholder="Enter your message" required></textarea>
+								<span class="error" id="message-error"></span>
+							</div>
 						</div>
-					</div>
+						<div class="button">
+							<input type="submit" value="SUBMIT">
+						</div>
+					</form>
+					<button id="cancel" class="close-btn" onclick="closeForm()">CANCEL</button>
 				</div>
-			<div class="downside">
-				
 			</div>
 		</div>
+		<div class="downside"></div>
 	</div>
+	<script>
+		document.getElementById("form").addEventListener("submit", function (event) {
+			event.preventDefault();
+			if (validateForm()) {
+				alert("Form submitted successfully!");
+				// Here, you can add code to submit the form data to the server if needed.
+			}
+		});
+
+		function validateForm() {
+			const name = document.getElementById("name").value;
+			const email = document.getElementById("email").value;
+			const message = document.getElementById("message").value;
+
+			let isValid = true;
+
+			if (!validateName(name)) {
+				showError("name-error", "Please enter a valid name (no numbers allowed).");
+				isValid = false;
+			} else {
+				clearError("name-error");
+			}
+
+			if (!validateEmail(email)) {
+				showError("email-error", "Please enter a valid email address.");
+				isValid = false;
+			} else {
+				clearError("email-error");
+			}
+
+			if (message.trim() === "") {
+				showError("message-error", "Please enter a message.");
+				isValid = false;
+			} else {
+				clearError("message-error");
+			}
+
+			return isValid;
+		}
+
+		function validateName(name) {
+			const regex = /^[a-zA-Z\s]+$/;
+			return regex.test(name);
+		}
+
+		function validateEmail(email) {
+			const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			return regex.test(email);
+		}
+
+		function showError(id, message) {
+			document.getElementById(id).textContent = message;
+		}
+
+		function clearError(id) {
+			document.getElementById(id).textContent = "";
+		}
+
+		function closeForm() {
+			window.location.href = "index.html";
+		}
+
+	</script>
 	<script src="script.js"></script>
 </body>
+
 </html>
